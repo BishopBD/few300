@@ -2,7 +2,7 @@
   <header>
     <p class="text-xl">Your Account Information</p>
   </header>
-  <app-account-display></app-account-display>
+  <app-account-display [account]="account$ | async"></app-account-display>
 </section>
 <section>
   <header class="text-l">Your Order History:</header>

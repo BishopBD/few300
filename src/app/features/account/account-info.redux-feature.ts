@@ -1,6 +1,5 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import * as actions from './actions';
-
 export interface OrderInfo {
   id: string;
   date: string;
@@ -16,6 +15,7 @@ export interface AccountState {
   personalInfo: AccountInfo | null;
   orders: OrderInfo[] | null;
 }
+
 const initialState: AccountState = {
   personalInfo: null,
   orders: null,

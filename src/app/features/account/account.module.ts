@@ -10,7 +10,11 @@ import { AccountDisplayComponent } from './components/account-display/account-di
 import { OrdersDisplayComponent } from './components/orders-display/orders-display.component';
 
 @NgModule({
-  declarations: [AccountComponent, AccountDisplayComponent, OrdersDisplayComponent],
+  declarations: [
+    AccountComponent,
+    AccountDisplayComponent,
+    OrdersDisplayComponent,
+  ],
   imports: [
     CommonModule,
     AccountRoutingModule,
