@@ -8,11 +8,13 @@ import * as fromTopics from './topics.reducer';
 export interface AppState {
   topics: fromTopics.TopicState;
   tempTopics: fromTempTopics.TempTopicState;
+  applicationErrors: fromAppErrors.AppErrorState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   topics: fromTopics.reducer,
   tempTopics: fromTempTopics.reducer,
+  applicationErrors: fromAppErrors.reducer,
 };
 
 // Feature selector (since we are in the app feature - the root)

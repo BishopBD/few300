@@ -12,8 +12,8 @@ export class TopicsEffects {
   readonly baseUrl = environment.urls.hypertheoryLearning + 'learning';
   id = 1;
 
-  // our topicSavedFailure -> applicationError
-  tellAppofTopicApiError$ = createEffect(() => {
+  // our topicSavedFailure => applicationError
+  tellAppOfTopicApiError$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.topicSavedFailure),
       map((a) =>
@@ -29,6 +29,7 @@ export class TopicsEffects {
     );
   });
 
+  // Observable.of() $a.map() $a.do(() => console.log('hi'))
   topicSaved$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.tempTopicCreated), // if it isn't one of these, I don't care.
@@ -49,6 +50,7 @@ export class TopicsEffects {
       ),
     );
   });
+
   loadTopics$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.loadTopics),

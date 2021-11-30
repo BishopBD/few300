@@ -1,6 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
 import * as actions from '../actions/app.actions';
-
 export interface AppErrorState {
   hasError: boolean;
   message?: string;

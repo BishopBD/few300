@@ -1,6 +1,7 @@
-import { Action, createAction, props } from '@ngrx/store';
+
+import { Action, createAction, props } from "@ngrx/store";
 
 export const applicationError = createAction(
   '[app] application error',
-  props<{ message: string; meta: { feature?: string; originalAction: Action } }>(),
+  props<{message: string, meta: { feature?: string, originalAction: Action }}>()
 );
