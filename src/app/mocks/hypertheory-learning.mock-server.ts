@@ -1,3 +1,4 @@
+import { subDays } from 'date-fns';
 import { createServer, Model, Response } from 'miragejs';
 import { environment } from 'src/environments/environment';
 import { TopicEntity } from '../reducers/topics.reducer';
@@ -39,6 +40,28 @@ export function mockServer() {
         },
         { timing: 2000 },
       );
+
+      // GET http://api.hypertheory.com/my-account // "Store"
+      // GET http://api.hypertheory.com/accounts/{accountNumber} " other people's accounts"
+      // GET http://api.store.com/my-cart
+
+      this.namespace == 'my-account';
+
+      this.get('/', () => {
+        return {
+          personalInfo: {
+            employeeId: '93939',
+            firstName: 'Brian',
+            lastName: 'Bishop',
+            email: 'briguy032@aol.com',
+          },
+          orders: [
+            { id: '93939', date: subDays(new Date(), 20).toISOString(), fulfilled: true },
+            { id: '1080', date: subDays(new Date(), 12).toISOString(), fulfilled: true },
+            { id: '93939', date: subDays(new Date(), 1).toISOString(), fulfilled: false },
+          ],
+        };
+      });
     },
   });
 }

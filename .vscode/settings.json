@@ -14,7 +14,7 @@
   "editor.snippetSuggestions": "top",
   "workbench.editor.labelFormat": "medium",
   "editor.minimap.enabled": false,
-  "window.zoomLevel": 0,
+  "window.zoomLevel": -1,
   "git.enableSmartCommit": true,
   "git.autofetch": true,
   "eslint.rules.customizations": [
