@@ -10,6 +10,9 @@ import { loadAccountInformation } from './actions';
 })
 export class AccountComponent implements OnInit {
   personalInfoLoaded$ = this.store.select(accountFeature.selectPersonalInfoLoaded);
+
+  orderHistory$ = this.store.select(accountFeature.selectOrders);
+  ordersLoaded$ = this.store.select(accountFeature.selectOrdersLoaded);
   account$ = this.store.select(accountFeature.selectPersonalInfo);
   constructor(private store: Store) {
     store.dispatch(loadAccountInformation());

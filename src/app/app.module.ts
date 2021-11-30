@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { extModules, extProviders } from './build-specifics';
@@ -32,6 +33,7 @@ import { DarkModeService } from './services/dark-mode.service';
     HttpClientModule,
     EffectsModule.forRoot([TopicsEffects]),
     ReactiveFormsModule,
+    NgxSkeletonLoaderModule,
     ...extModules,
   ],
   providers: [DarkModeService, ...extProviders],

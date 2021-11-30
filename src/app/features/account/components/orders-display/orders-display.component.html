@@ -1,1 +1,20 @@
-<p>orders-display works!</p>
+<div class="w-96" *ngIf="!loaded">
+  <ngx-skeleton-loader
+    [theme]="{
+      'background-color': 'gray',
+      'opacity': 1,
+      'filter': 'blur(6px)'
+    }"
+    count="4"
+    appearance="line"
+    animation="pulse"
+  >
+  </ngx-skeleton-loader>
+</div>
+<ul>
+  <li *ngFor="let order of orders">
+    <span>Id: {{ order.id }}</span>
+    <span>Date: {{ order.date }}</span>
+    <span>Fulfilled: {{ order.fulfilled }}</span>
+  </li>
+</ul>
