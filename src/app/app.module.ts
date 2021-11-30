@@ -14,8 +14,6 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { TopicEntryComponent } from './components/topics/topic-entry/topic-entry.component';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TopicsEffects } from './effects/topics.effects';
-import { AccountComponent } from './features/account/account.component';
-import { AccountModule } from './features/account/account.module';
 import { reducers } from './reducers';
 import { DarkModeService } from './services/dark-mode.service';
 @NgModule({
@@ -26,11 +24,9 @@ import { DarkModeService } from './services/dark-mode.service';
     TopicsComponent,
     TopicEntryComponent,
     ErrorDisplayComponent,
-    AccountComponent,
   ],
   imports: [
     BrowserModule,
-    AccountModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
