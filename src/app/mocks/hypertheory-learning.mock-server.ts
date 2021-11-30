@@ -47,16 +47,10 @@ export function mockServer() {
       this.namespace = 'my-account';
 
       this.get(
-        '/',
+        '/order-history',
         () => {
           return {
-            personalInfo: {
-              employeeId: '93939',
-              firstName: 'Brian',
-              lastName: 'Bishop',
-              email: 'briguy032@aol.com',
-            },
-            orders: [
+            data: [
               {
                 id: '93939',
                 date: subDays(new Date(), 20).toISOString(),
@@ -75,7 +69,21 @@ export function mockServer() {
             ],
           };
         },
-        { timing: 4000 },
+        { timing: 3500 },
+      );
+      this.get(
+        '/',
+        () => {
+          return {
+            personalInfo: {
+              employeeId: '93939',
+              firstName: 'Brian',
+              lastName: 'Bishop',
+              email: 'briguy032@aol.com',
+            },
+          };
+        },
+        { timing: 500 },
       );
     },
   });
