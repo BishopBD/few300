@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { topicCreated } from 'src/app/actions/topics.actions';
 import { selectTopicExists } from 'src/app/reducers';
@@ -13,7 +13,7 @@ export class TopicEntryComponent {
   form = this.formBuilder.group({
     description: [
       '',
-      [Validators.required, Validators.maxLength(20)],
+      [Validators.required, Validators.maxLength(20), this.disallowedTopicValidator('react')],
       [alreadyExistsValidator(this.store, selectTopicExists)],
     ],
   });
@@ -33,5 +33,17 @@ export class TopicEntryComponent {
       this.form.reset();
       el.focus();
     }
+  }
+
+  disallowedTopicValidator(topic: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control.value.toString().toLocaleLowerCase() === topic) {
+        return {
+          noReact: true,
+        };
+      } else {
+        return null;
+      }
+    };
   }
 }
