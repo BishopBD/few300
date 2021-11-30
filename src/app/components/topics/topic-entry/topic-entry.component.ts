@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { topicCreated } from 'src/app/actions/topics.actions';
 import { selectTopicExists } from 'src/app/reducers';
 import { alreadyExistsValidator } from 'src/app/validators/already-exists.validator';
+import { disallowedTopicValidator } from 'src/app/validators/topic-not-allowed.validator';
 @Component({
   selector: 'app-topic-entry',
   templateUrl: './topic-entry.component.html',
@@ -11,16 +12,13 @@ import { alreadyExistsValidator } from 'src/app/validators/already-exists.valida
 })
 export class TopicEntryComponent {
   form = this.formBuilder.group({
-    description: [
-      '',
-      [Validators.required, Validators.maxLength(20), this.disallowedTopicValidator('react')],
-      [alreadyExistsValidator(this.store, selectTopicExists)],
-    ],
+    description: new FormControl('', {
+      validators: [Validators.required, Validators.maxLength(20), disallowedTopicValidator('dancing')],
+      asyncValidators: [alreadyExistsValidator(this.store, selectTopicExists)],
+    }),
   });
 
-  constructor(private formBuilder: FormBuilder, private store: Store, cd: ChangeDetectorRef) {
-    this.description?.statusChanges.subscribe(() => cd.markForCheck());
-  }
+  constructor(private formBuilder: FormBuilder, private store: Store) {}
 
   get description() {
     return this.form.get('description');
@@ -33,17 +31,5 @@ export class TopicEntryComponent {
       this.form.reset();
       el.focus();
     }
-  }
-
-  disallowedTopicValidator(topic: string): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (control.value.toString().toLocaleLowerCase() === topic) {
-        return {
-          noReact: true,
-        };
-      } else {
-        return null;
-      }
-    };
   }
 }
