@@ -15,6 +15,5 @@ export class NavBarComponent {
 
   logOut() {
     this.store.dispatch(logOut());
-    this.router.navigate(['home']);
   }
 }

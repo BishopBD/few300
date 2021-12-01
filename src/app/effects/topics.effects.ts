@@ -17,7 +17,10 @@ export class TopicsEffects {
     return this.actions$.pipe(
       ofType(actions.topicSavedFailure),
       map((a) =>
-        appActions.applicationError({ message: a.meta.errorMessage, meta: { feature: 'topics', originalAction: a } }),
+        appActions.applicationError({
+          message: a.meta.errorMessage,
+          meta: { feature: 'topics', originalAction: a },
+        }),
       ),
     );
   });
@@ -25,7 +28,11 @@ export class TopicsEffects {
   createTempTopic$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(actions.topicCreated),
-      map((a) => actions.tempTopicCreated({ payload: { description: a.description, id: 'T' + this.id++ } })),
+      map((a) =>
+        actions.tempTopicCreated({
+          payload: { description: a.description, id: 'T' + this.id++ },
+        }),
+      ),
     );
   });
 
@@ -35,14 +42,24 @@ export class TopicsEffects {
       ofType(actions.tempTopicCreated), // if it isn't one of these, I don't care.
       switchMap((originalAction) =>
         this.client
-          .post<TopicEntity>(`${this.baseUrl}/topics`, { description: originalAction.payload.description })
+          .post<TopicEntity>(`${this.baseUrl}/topics`, {
+            description: originalAction.payload.description,
+          })
           .pipe(
-            map((r) => actions.topicSaved({ payload: r, meta: { oldId: originalAction.payload.id } })),
+            map((r) =>
+              actions.topicSaved({
+                payload: mapTopic(r),
+                meta: { oldId: originalAction.payload.id },
+              }),
+            ),
             catchError((r) =>
               of(
                 actions.topicSavedFailure({
                   payload: originalAction.payload,
-                  meta: { statusCode: '400', errorMessage: 'Could not add this topic' },
+                  meta: {
+                    statusCode: '400',
+                    errorMessage: 'Could not add this topic',
+                  },
                 }),
               ),
             ),
@@ -57,9 +74,20 @@ export class TopicsEffects {
       switchMap(() =>
         this.client
           .get<{ data: TopicEntity[] }>(`${this.baseUrl}/topics`)
-          .pipe(map(({ data: payload }) => actions.loadTopicsSucceeded({ payload }))),
+
+          .pipe(
+            map((payload) => payload.data.map(mapTopic)),
+            map((payload) => actions.loadTopicsSucceeded({ payload })),
+          ),
       ),
     );
   });
   constructor(private actions$: Actions, private client: HttpClient) {}
+}
+
+function mapTopic(topic: TopicEntity) {
+  return {
+    ...topic,
+    id: topic.id.toString(),
+  } as TopicEntity;
 }

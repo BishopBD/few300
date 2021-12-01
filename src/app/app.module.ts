@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { TopicEntryComponent } from './components/topics/topic-entry/topic-entry.component';
 import { TopicsComponent } from './components/topics/topics.component';
+import { AppEffects } from './effects/app.effects';
 import { TopicsEffects } from './effects/topics.effects';
 import { reducers } from './reducers';
 import { DarkModeService } from './services/dark-mode.service';
@@ -32,11 +33,11 @@ import { PipesModule } from './utilities/pipesmodule/pipes.module';
     StoreModule.forRoot(reducers),
     PipesModule,
     HttpClientModule,
-    EffectsModule.forRoot([TopicsEffects]),
+    EffectsModule.forRoot([TopicsEffects, AppEffects]),
     ReactiveFormsModule,
     ...extModules,
   ],
-  providers: [DarkModeService, ...extProviders, MustBeLoggedInGuard],
+  providers: [DarkModeService, MustBeLoggedInGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
