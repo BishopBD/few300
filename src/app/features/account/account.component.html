@@ -2,12 +2,17 @@
   <header>
     <p class="text-xl">Your Account Information</p>
   </header>
-  <app-account-display *ngIf="personalInfoLoaded$ | async" [account]="account$ | async"></app-account-display>
+  <app-account-display
+    *ngIf="personalInfoLoaded$ | async"
+    [account]="account$ | async"
+  ></app-account-display>
   <div *ngIf="(personalInfoLoaded$ | async) === false">
     <p>Loading your personal information....</p>
   </div>
 </section>
 <section>
   <header class="text-l">Your Order History:</header>
-  <app-orders-display></app-orders-display>
+  <a [routerLink]="['order-history']">See Your Order History</a>
 </section>
+
+<router-outlet></router-outlet>

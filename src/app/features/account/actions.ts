@@ -1,7 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 import { AccountState, OrderInfo } from './account-info.redux-feature';
 
-export const loadAccountInformation = createAction('[account] load account information');
+export const loadAccountInformation = createAction(
+  '[account] load account information',
+);
 
 export const accountInformationLoaded = createAction(
   '[account] loaded account information',
@@ -9,6 +11,6 @@ export const accountInformationLoaded = createAction(
 );
 
 export const accountOrderInformationLoaded = createAction(
-  '[account] loaded order information',
+  '[account] account order information loaded',
   props<{ payload: OrderInfo[] }>(),
 );

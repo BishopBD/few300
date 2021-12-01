@@ -22,7 +22,7 @@ const initialState: AccountState = {
   personalInfo: null,
   orders: null,
   personalInfoLoaded: false,
-  ordersLoaded: true,
+  ordersLoaded: false,
 };
 
 export const accountFeature = createFeature({

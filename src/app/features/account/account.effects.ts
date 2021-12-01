@@ -4,7 +4,11 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AccountState, OrderInfo } from './account-info.redux-feature';
-import { accountInformationLoaded, accountOrderInformationLoaded, loadAccountInformation } from './actions';
+import {
+  accountInformationLoaded,
+  accountOrderInformationLoaded,
+  loadAccountInformation,
+} from './actions';
 
 @Injectable()
 export class AccountEffects {
@@ -12,10 +16,14 @@ export class AccountEffects {
     return this.actions$.pipe(
       ofType(loadAccountInformation),
       switchMap(() =>
-        this.client.get<{ data: OrderInfo[] }>(environment.urls.hypertheoryLearning + 'my-account/order-history').pipe(
-          map((response) => response.data),
-          map((payload) => accountOrderInformationLoaded({ payload })),
-        ),
+        this.client
+          .get<{ data: OrderInfo[] }>(
+            environment.urls.hypertheoryLearning + 'my-account/order-history',
+          )
+          .pipe(
+            map((response) => response.data),
+            map((payload) => accountOrderInformationLoaded({ payload })),
+          ),
       ),
     );
   });
